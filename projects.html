@@ -182,9 +182,7 @@
       left.innerHTML = `
         <h3>Highlights</h3>
         <ul class="pd-list">
-          <li>Updated: ${new Date(repo.pushed_at).toLocaleDateString()}</li>
-          <li>Stars: ${repo.stargazers_count}</li>
-          <li>Default branch: ${repo.default_branch}</li>
+          <li>Updated: ${new Date(repo.pushed_at).toLocaleDateString()}</li>          
         </ul>
       `;
       right.innerHTML = `
