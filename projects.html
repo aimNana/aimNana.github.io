@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projects — aimNana</title>
+  <meta name="description" content="Detailed projects by aimNana: features, tech stack, screenshots and links."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css?v=1">
+</head>
+<body>
+  <header>
+    <div class="hero">
+      <a href="index.html" class="btn secondary">← Back</a>
+      <div>
+        <h1>Projects</h1>
+        <p>Case studies with features, tech stacks and links.</p>
+      </div>
+      <nav class="cta">
+        <a class="btn" href="index.html#contact">Contact</a>
+        <button id="theme-toggle" class="btn ghost" type="button" aria-label="Toggle dark mode">🌓</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Project 1 -->
+    <section class="card project-detail" id="survey-form">
+      <div class="pd-head">
+        <img class="pd-shot" src="assets/img/project-survey.jpg" alt="Survey Form preview" onerror="this.style.display='none'">
+        <div class="pd-meta">
+          <h2>Survey Form (FCC)</h2>
+          <p class="lead">Accessible and responsive form to demonstrate semantic HTML, labels/inputs pairing and clean CSS.</p>
+          <div class="pd-badges">
+            <span class="badge">HTML5</span>
+            <span class="badge">CSS3</span>
+            <span class="badge">A11y</span>
+          </div>
+          <div class="pd-links">
+            <a class="btn" href="https://aimnana.github.io/fcc-responsive-web-design-projects/survey-form/" target="_blank" rel="noopener">Live Demo</a>
+            <a class="btn secondary" href="https://github.com/aimnana/fcc-responsive-web-design-projects" target="_blank" rel="noopener">Repository</a>
+          </div>
+        </div>
+      </div>
+      <div class="pd-body">
+        <div>
+          <h3>Highlights</h3>
+          <ul class="pd-list">
+            <li>Semantic structure with proper form grouping and accessible labels.</li>
+            <li>Responsive layout without frameworks, mobile-first CSS.</li>
+            <li>Color contrast and focus styles for keyboard navigation.</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Tech Stack</h3>
+          <ul class="pd-list">
+            <li>HTML5 semantic elements</li>
+            <li>CSS custom properties</li>
+            <li>Shields badges</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project 2 -->
+    <section class="card project-detail" id="qt-palletizer">
+      <div class="pd-head">
+        <img class="pd-shot" src="assets/img/project-qt.jpg" alt="QTPalletizerDemo preview" onerror="this.style.display='none'">
+        <div class="pd-meta">
+          <h2>QTPalletizerDemo</h2>
+          <p class="lead">Qt 6.8.3 · C++17 demo app showcasing modular UI and core logic patterns.</p>
+          <div class="pd-badges">
+            <span class="badge">Qt 6</span>
+            <span class="badge">C++17</span>
+            <span class="badge">Desktop</span>
+          </div>
+          <div class="pd-links">
+            <a class="btn secondary" href="https://github.com/aimnana/QTPalletizerDemo" target="_blank" rel="noopener">Repository</a>
+          </div>
+        </div>
+      </div>
+      <div class="pd-body">
+        <div>
+          <h3>Highlights</h3>
+          <ul class="pd-list">
+            <li>Signals/slots architecture and separation between UI and logic.</li>
+            <li>Modular components and reusable widgets.</li>
+            <li>CMake project (configurable builds).</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Tech Stack</h3>
+          <ul class="pd-list">
+            <li>Qt 6.8.3 (Widgets)</li>
+            <li>C++17</li>
+            <li>CMake</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Project 3 -->
+    <section class="card project-detail" id="intranet">
+      <div class="pd-head">
+        <img class="pd-shot" src="assets/img/project-intranet.jpg" alt="Intranet PHP/JS/SQL preview" onerror="this.style.display='none'">
+        <div class="pd-meta">
+          <h2>Intranet PHP/JS/SQL</h2>
+          <p class="lead">Authentication, CRUD and responsive layout. Private repo; case study with selected screenshots.</p>
+          <div class="pd-badges">
+            <span class="badge">PHP</span>
+            <span class="badge">MySQL</span>
+            <span class="badge">JavaScript</span>
+          </div>
+          <div class="pd-links">
+            <a class="btn secondary" href="#" target="_blank" rel="noopener">Case study (PDF/Notion)</a>
+          </div>
+        </div>
+      </div>
+      <div class="pd-body">
+        <div>
+          <h3>Highlights</h3>
+          <ul class="pd-list">
+            <li>Role-based auth, input validation and error handling.</li>
+            <li>CRUD with secure queries and pagination.</li>
+            <li>Responsive UI components (tables, forms, filters).</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Tech Stack</h3>
+          <ul class="pd-list">
+            <li>PHP 8 + MySQL</li>
+            <li>Vanilla JS</li>
+            <li>Semantic HTML + custom CSS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <small>© <span id="year"></span> <strong>aimNana</strong> · Projects Page</small>
+  </footer>
+
+  <!-- Dark toggle init (same logic as index) -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function() {
+      const STORAGE_KEY = 'theme';
+      const root = document.documentElement;
+      function applyTheme(theme) {
+        if (theme === 'dark') root.setAttribute('data-theme','dark');
+        else root.removeAttribute('data-theme');
+      }
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) applyTheme(saved);
+      else if (window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+      const btn = document.getElementById('theme-toggle');
+      if (btn) btn.addEventListener('click', () => {
+        const isDark = root.getAttribute('data-theme') === 'dark';
+        const next = isDark ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem(STORAGE_KEY, next);
+      });
+    })();
+  </script>
+</body>
+</html>
