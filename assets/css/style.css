@@ -232,4 +232,41 @@ footer{
   .bar{ height:8px; }
   .timeline{ padding-left:16px; }
 }
+/* ---------- Dark theme (CSS variables override) ---------- */
+html[data-theme="dark"] {
+  --bg:#0f1520;          /* sfondo pagina */
+  --surface:#111827;     /* card */
+  --ink:#e5e7eb;         /* testo primario */
+  --muted:#9aa3af;       /* testo secondario */
+  --primary:#7aa3e6;     /* placid blue adattato al dark */
+  --secondary:#82c9aa;   /* green ash adattato al dark */
+  --accent:#3b2f36;      /* chip rosewater scurita */
+  --line:#273244;        /* bordi */
+  --shadow-lg:0 14px 28px rgba(0,0,0,.45);
+  --shadow:   0 10px 22px rgba(0,0,0,.35);
+  --shadow-sm:0 6px 14px  rgba(0,0,0,.28);
+}
+
+/* header in dark */
+html[data-theme="dark"] header {
+  background:
+    repeating-linear-gradient(90deg, #1e2633 0 16px, transparent 16px 32px),
+    linear-gradient(180deg, #0f1520 0%, #1b2330 100%);
+  border-bottom-color: var(--primary);
+}
+
+/* card / project / repo in dark */
+html[data-theme="dark"] .card {
+  background: var(--surface);
+  border-color: var(--line);
+  box-shadow: var(--shadow-sm);
+}
+html[data-theme="dark"] .project,
+html[data-theme="dark"] .repo {
+  background: #0f1520;
+}
+html[data-theme="dark"] .chip {
+  background: var(--accent);
+  color: #f0d5d6;
+}
 
