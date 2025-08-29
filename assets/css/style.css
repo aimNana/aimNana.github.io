@@ -3,7 +3,8 @@
    - Personal palette (Pantone-like)
    - Fluid grids (auto-fit/minmax)
    - Compact cards with spacing
-   - Dark mode toggle
+   - Dark mode toggle (slider)
+   - Projects page auto layout
    - Responsive tweaks
 ============================ */
 
@@ -41,7 +42,7 @@ body{
   line-height:1.5;
 }
 
-/* ----------------- HEADER (striped + gradient) ----------------- */
+/* ----------------- HEADER ----------------- */
 header{
   background:
     repeating-linear-gradient(90deg, var(--lavender) 0 16px, transparent 16px 32px),
@@ -80,14 +81,13 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
   margin:22px auto 60px;
   padding:0 20px;
 }
-
 .grid{
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: clamp(12px, 2.5vw, 20px);
 }
 
-/* ----------------- CARD (compact + spacing) ----------------- */
+/* ----------------- CARD ----------------- */
 .card{
   background:var(--surface);
   border:1px solid var(--line);
@@ -96,7 +96,7 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
   padding: clamp(10px, 2.2vw, 14px);
   max-width:900px;
   margin-inline:auto;
-  margin-bottom:20px; /* extra spacing between cards */
+  margin-bottom:20px;
 }
 .card h2{ margin:0 0 10px }
 .lead{ color:var(--muted) }
@@ -107,7 +107,7 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
 /* ----------------- CONTACT ----------------- */
 .contact .row{ display:flex; gap:12px; flex-wrap:wrap }
 
-/* ----------------- PROJECTS (fluid grid) ----------------- */
+/* ----------------- PROJECTS (homepage) ----------------- */
 #projects{ grid-column:1/-1 }
 .projects{
   display:grid;
@@ -115,6 +115,9 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
   gap: clamp(10px, 2vw, 16px);
 }
 .project{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
   padding: clamp(10px, 2vw, 12px);
   border:1px solid var(--line);
   border-radius:12px;
@@ -122,8 +125,8 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
   margin-bottom:20px;
 }
 .project h3{ margin:0 0 6px }
-.project p{ margin:0 0 12px; color:#425364 }
-.project .links{ display:flex; gap:10px; flex-wrap:wrap }
+.project p{ margin:0 0 12px; color:#425364; flex-grow:1; }
+.project .links{ display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; }
 .chip{
   display:inline-block; padding:6px 12px; border-radius:999px;
   background:var(--rosewater); color:#6a3f3a; font-weight:800; margin-bottom:8px;
@@ -152,7 +155,7 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
 .timeline-item h4{ margin:0 0 4px }
 .timeline-item small{ color:var(--muted) }
 
-/* ----------------- LATEST REPOS (fluid grid) ----------------- */
+/* ----------------- LATEST REPOS ----------------- */
 #latest{ grid-column:1/-1 }
 .repo-grid{
   display:grid;
@@ -160,6 +163,9 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
   gap: clamp(10px, 2vw, 16px);
 }
 .repo{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
   padding: clamp(10px, 2vw, 12px);
   border:1px solid var(--line);
   border-radius:12px;
@@ -167,15 +173,11 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
   margin-bottom:20px;
 }
 .repo h3{ margin:0 0 6px; font-size:18px }
-.repo p{ margin:0 0 10px; color:#4b5d6c; min-height:42px }
-.repo .meta{
-  display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-  font-size:13px; color:#516171
-}
-.badge{
-  display:inline-block; padding:4px 8px; border-radius:999px;
-  background:var(--greenash); font-weight:800; color:#1f3a30
-}
+.repo p{ margin:0 0 10px; color:#4b5d6c; min-height:42px; flex-grow:1; }
+.repo .meta{ display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+  font-size:13px; color:#516171 }
+.badge{ display:inline-block; padding:4px 8px; border-radius:999px;
+  background:var(--greenash); font-weight:800; color:#1f3a30 }
 
 /* ----------------- FOOTER ----------------- */
 footer{
@@ -184,78 +186,82 @@ footer{
 }
 
 /* ============================
-   Responsive Tweaks
+   Theme slider
 ============================ */
+.theme-switch{ display:inline-block; line-height:0; }
+.theme-switch input{ position:absolute; opacity:0; pointer-events:none; }
+.theme-switch .track{
+  position:relative; display:inline-flex; align-items:center; justify-content:space-between;
+  width:70px; height:36px; padding:0 10px; border-radius:999px;
+  background:var(--surface); border:1px solid var(--line); box-shadow:var(--shadow-sm); color:var(--muted);
+  transition:background .2s ease, border-color .2s ease;
+}
+.theme-switch .thumb{
+  position:absolute; left:4px; top:50%; transform:translateY(-50%); width:28px; height:28px; border-radius:50%;
+  background:var(--primary); box-shadow:0 6px 14px rgba(18,34,52,.18); transition:transform .25s ease;
+}
+.theme-switch .icon{ opacity:.7; transition:opacity .2s ease; }
+.theme-switch .sun{ margin-right:16px; }
+.theme-switch .moon{ margin-left:16px; opacity:.35; }
+.theme-switch input:checked + .track .thumb{ transform:translate(34px, -50%); }
+.theme-switch input:checked + .track .sun{ opacity:.35; }
+.theme-switch input:checked + .track .moon{ opacity:.8; }
+html[data-theme="dark"] .theme-switch .track{ background:var(--surface); color:var(--muted); }
 
-/* Tablets / small laptops */
-@media (max-width: 980px) {
-  .hero{
-    padding: 20px 16px 28px;
-    gap: 14px;
-  }
-  .cta{ gap:10px; }
+/* ============================
+   Detailed Projects page layout
+============================ */
+.project-detail { max-width: 1100px; }
+.pd-head{
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: clamp(12px, 2.5vw, 20px);
+  align-items: start;
+}
+.pd-shot{
+  width: 100%; height: 260px; object-fit: cover; border-radius: 14px;
+  border: 1px solid var(--line); box-shadow: var(--shadow-sm); background:#fff;
+}
+.pd-meta{ display:flex; flex-direction:column; min-width:0; }
+.pd-badges{ display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 10px; }
+.pd-links{ display:flex; gap:10px; flex-wrap:wrap; margin-top:auto; }
+.pd-body{
+  margin-top: 14px; display:grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(12px, 2.5vw, 20px);
+}
+.pd-list{ margin:8px 0 0; padding-left:18px; }
+.pd-list li{ margin:4px 0; color:var(--muted); }
+@media (max-width: 980px){
+  .pd-head{ grid-template-columns: 1fr; }
+  .pd-shot{ height: 220px; }
+  .pd-body{ grid-template-columns: 1fr; }
+}
+@media (max-width: 640px){
+  .pd-shot{ height: 180px; }
 }
 
-/* Phones */
-@media (max-width: 640px) {
-  header{ border-bottom-width:4px; }
-  .hero{
-    padding:16px;
-    flex-direction:column;          /* stack logo + text + buttons */
-    align-items:flex-start;
-    gap:12px;
-  }
-  .logo{ height:56px; }
-  h1{ font-size:22px; line-height:1.2; }
-  .hero p{ font-size:14px; max-width:100%; }
-
-  .cta{
-    margin-left:0;
-    width:100%;
-    gap:8px;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-    padding-bottom:2px;
-  }
-  .btn{ padding:10px 12px; font-weight:700; white-space:nowrap }
-
-  .wrap{ padding:0 14px; margin:18px auto 40px; }
-
-  .card{ padding:12px; border-radius:14px; box-shadow:var(--shadow); max-width:100%; }
-  .card h2{ font-size:20px; }
-
-  .contact .row{ flex-direction:column; }
-  .contact .row .btn{ width:100%; text-align:center; }
-
-  .badges img{ height:18px; }
-  .skill{ padding:10px; }
-  .bar{ height:8px; }
-  .timeline{ padding-left:16px; }
-}
-/* ---------- Dark theme (CSS variables override) ---------- */
+/* ============================
+   Dark theme overrides
+============================ */
 html[data-theme="dark"] {
-  --bg:#0f1520;          /* sfondo pagina */
-  --surface:#111827;     /* card */
-  --ink:#e5e7eb;         /* testo primario */
-  --muted:#9aa3af;       /* testo secondario */
-  --primary:#7aa3e6;     /* placid blue adattato al dark */
-  --secondary:#82c9aa;   /* green ash adattato al dark */
-  --accent:#3b2f36;      /* chip rosewater scurita */
-  --line:#273244;        /* bordi */
+  --bg:#0f1520;
+  --surface:#111827;
+  --ink:#e5e7eb;
+  --muted:#9aa3af;
+  --primary:#7aa3e6;
+  --secondary:#82c9aa;
+  --accent:#3b2f36;
+  --line:#273244;
   --shadow-lg:0 14px 28px rgba(0,0,0,.45);
   --shadow:   0 10px 22px rgba(0,0,0,.35);
   --shadow-sm:0 6px 14px  rgba(0,0,0,.28);
 }
-
-/* header in dark */
 html[data-theme="dark"] header {
   background:
     repeating-linear-gradient(90deg, #1e2633 0 16px, transparent 16px 32px),
     linear-gradient(180deg, #0f1520 0%, #1b2330 100%);
   border-bottom-color: var(--primary);
 }
-
-/* card / project / repo in dark */
 html[data-theme="dark"] .card {
   background: var(--surface);
   border-color: var(--line);
@@ -263,10 +269,35 @@ html[data-theme="dark"] .card {
 }
 html[data-theme="dark"] .project,
 html[data-theme="dark"] .repo {
-  background: #0f1520;
+  background:#0f1520;
 }
 html[data-theme="dark"] .chip {
   background: var(--accent);
-  color: #f0d5d6;
+  color:#f0d5d6;
 }
 
+/* ============================
+   Responsive tweaks
+============================ */
+@media (max-width: 980px) {
+  .hero{ padding:20px 16px 28px; gap:14px; }
+  .cta{ gap:10px; }
+}
+@media (max-width: 640px) {
+  header{ border-bottom-width:4px; }
+  .hero{ padding:16px; flex-direction:column; align-items:flex-start; gap:12px; }
+  .logo{ height:56px; }
+  h1{ font-size:22px; line-height:1.2; }
+  .hero p{ font-size:14px; max-width:100%; }
+  .cta{ margin-left:0; width:100%; gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:2px; }
+  .btn{ padding:10px 12px; font-weight:700; white-space:nowrap }
+  .wrap{ padding:0 14px; margin:18px auto 40px; }
+  .card{ padding:12px; border-radius:14px; box-shadow:var(--shadow); max-width:100%; }
+  .card h2{ font-size:20px; }
+  .contact .row{ flex-direction:column; }
+  .contact .row .btn{ width:100%; text-align:center; }
+  .badges img{ height:18px; }
+  .skill{ padding:10px; }
+  .bar{ height:8px; }
+  .timeline{ padding-left:16px; }
+}
