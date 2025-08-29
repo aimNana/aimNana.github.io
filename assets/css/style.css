@@ -377,3 +377,31 @@ html[data-theme="dark"] .chip { background: var(--accent); color:#f0d5d6; }
   .pd-links .btn { min-height: 44px; }
   .project-detail .pd-badges .badge { font-size: 11.5px; padding: 3px 9px; }
 }
+/* ---------- Font scaling for mobile ---------- */
+@media (max-width: 640px) {
+  body {
+    font-size: 15px;        /* più piccolo rispetto al default (16–17px) */
+    line-height: 1.45;
+  }
+
+  h1 {
+    font-size: 20px;        /* titolo principale */
+  }
+
+  h2 {
+    font-size: 18px;        /* titoli sezioni */
+  }
+
+  h3 {
+    font-size: 16px;        /* sottotitoli / card */
+  }
+
+  p, .lead, small, li {
+    font-size: 14px;        /* testo normale */
+  }
+
+  .btn {
+    font-size: 14px;        /* bottoni coerenti */
+    padding: 9px 12px;
+  }
+}
