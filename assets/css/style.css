@@ -117,3 +117,82 @@ footer{
   opacity:.85; text-align:center; padding:30px 0 50px;
   font-size:14px; color:#3b4856
 }
+
+/* ============ Mobile & tablet tweaks ============ */
+
+/* Tablets / small laptops */
+@media (max-width: 980px) {
+  .hero {
+    padding: 20px 16px 28px;
+    gap: 14px;
+  }
+  .cta { gap: 10px; }
+  .projects,
+  .repo-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Phones */
+@media (max-width: 640px) {
+
+  /* Header / hero */
+  header { border-bottom-width: 4px; }
+  .hero {
+    padding: 16px;
+    flex-direction: column;          /* stack logo + text + buttons */
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .logo { height: 56px; }            /* smaller logo on phones */
+  h1 { font-size: 26px; line-height: 1.15; }
+  .hero p { font-size: 14px; max-width: 100%; }
+
+  /* CTA buttons become pill chips in a row */
+  .cta {
+    margin-left: 0;
+    width: 100%;
+    gap: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;             /* fix iOS shadow clipping */
+  }
+  .btn {
+    padding: 10px 12px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* Global wrapper */
+  .wrap { padding: 0 14px; margin: 18px auto 40px; }
+
+  /* Cards */
+  .card { padding: 14px; border-radius: 16px; box-shadow: 0 10px 20px rgba(18,34,52,.10); }
+  .card h2 { font-size: 20px; }
+
+  /* Layout grids -> single column */
+  .grid { grid-template-columns: 1fr; gap: 14px; }
+
+  /* Projects, repos grids -> 1 col */
+  .projects,
+  .repo-grid { grid-template-columns: 1fr; gap: 14px; }
+
+  /* Contact buttons span full width for easy tapping */
+  .contact .row { flex-direction: column; }
+  .contact .row .btn { width: 100%; text-align: center; }
+
+  /* Badges shrink slightly */
+  .badges img { height: 18px; }
+
+  /* Skills bars tighter */
+  .skill { padding: 10px; }
+  .bar { height: 8px; }
+
+  /* Timeline spacing */
+  .timeline { padding-left: 16px; }
+}
+
+/* Tiny phones (optional, extra polish) */
+@media (max-width: 360px) {
+  h1 { font-size: 22px; }
+  .btn { padding: 9px 10px; font-size: 14px; }
+}
+
