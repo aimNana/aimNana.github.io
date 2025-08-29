@@ -52,4 +52,134 @@
 
     <!-- Contact -->
     <section class="card contact" id="contact">
-      <h2>Contact
+      <h2>Contact</h2>
+      <p class="lead">Feel free to reach out for collaborations or feedback.</p>
+      <div class="row">
+        <a class="btn" href="mailto:example@example.com">Email</a>
+        <a class="btn secondary" href="https://github.com/aimnana" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn secondary" href="#" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="#" target="_blank" rel="noopener">Resume</a>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="card" id="projects" style="grid-column:1/-1">
+      <h2>Highlighted Projects</h2>
+      <div class="projects">
+        <article class="project">
+          <div class="chip">Front-end</div>
+          <h3>Survey Form (FCC)</h3>
+          <p>Accessible and responsive form, semantic HTML + clean CSS.</p>
+          <div class="links">
+            <a class="btn" href="https://aimnana.github.io/fcc-responsive-web-design-projects/survey-form/" target="_blank" rel="noopener">Live Demo</a>
+            <a class="btn secondary" href="https://github.com/aimnana/fcc-responsive-web-design-projects" target="_blank" rel="noopener">Repository</a>
+          </div>
+        </article>
+        <article class="project">
+          <div class="chip">Desktop · Qt/C++</div>
+          <h3>QTPalletizerDemo</h3>
+          <p>Qt 6.8.3 · C++17 demo application: UI + modular logic.</p>
+          <div class="links">
+            <a class="btn secondary" href="https://github.com/aimnana/QTPalletizerDemo" target="_blank" rel="noopener">Repository</a>
+          </div>
+        </article>
+        <article class="project">
+          <div class="chip">Full-stack</div>
+          <h3>Intranet PHP/JS/SQL</h3>
+          <p>Authentication, CRUD and responsive layout. (Private repo / case study)</p>
+          <div class="links">
+            <a class="btn secondary" href="#" target="_blank" rel="noopener">Case study</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section class="card" id="skills" style="grid-column:1/-1">
+      <h2>Skills</h2>
+      <div class="skills">
+        <div class="skill"><b>Front-end (HTML/CSS/JS)</b><div class="bar"><span style="width:85%"></span></div></div>
+        <div class="skill"><b>Back-end (PHP/MySQL)</b><div class="bar"><span style="width:75%"></span></div></div>
+        <div class="skill"><b>Desktop Apps (Qt/C++)</b><div class="bar"><span style="width:70%"></span></div></div>
+        <div class="skill"><b>Version Control (Git/GitHub)</b><div class="bar"><span style="width:80%"></span></div></div>
+      </div>
+    </section>
+
+    <!-- Experience -->
+    <section class="card" id="experience" style="grid-column:1/-1">
+      <h2>Experience Timeline</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <h4>2024 — Present · Personal Projects</h4>
+          <small>Building responsive web projects and Qt/C++ desktop apps, showcased on GitHub.</small>
+        </div>
+        <div class="timeline-item">
+          <h4>2023 · Freelance Travel Planner</h4>
+          <small>Created tailored itineraries and digital tools for clients on Fiverr.</small>
+        </div>
+        <div class="timeline-item">
+          <h4>Earlier · Self-taught Learning</h4>
+          <small>Studied full-stack development, databases, and embedded systems.</small>
+        </div>
+      </div>
+    </section>
+
+    <!-- Latest Repos -->
+    <section class="card" id="latest" style="grid-column:1/-1">
+      <h2>Latest Repositories</h2>
+      <p class="lead">Auto-fetched from GitHub (public repos, most recently updated).</p>
+      <div id="repo-grid" class="repo-grid" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <small>© <span id="year"></span> <strong>aimNana</strong> · Personal palette (Pantone) · Hosted on GitHub Pages.</small>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Latest repos
+    async function loadRepos(username){
+      const grid = document.getElementById('repo-grid');
+      grid.innerHTML = '<div class="repo">Loading…</div>';
+      try{
+        const r = await fetch(`https://api.github.com/users/${username}/repos?per_page=100`, {
+          headers: { 'Accept': 'application/vnd.github+json' }
+        });
+        if(!r.ok) throw new Error('GitHub API error');
+        const data = await r.json();
+        const repos = data
+          .filter(x => !x.fork)
+          .sort((a,b)=> new Date(b.pushed_at) - new Date(a.pushed_at))
+          .slice(0, 6);
+        grid.innerHTML = '';
+        if(repos.length === 0){ grid.innerHTML = '<div class="repo">No public repositories yet.</div>'; return; }
+        for(const repo of repos){
+          const card = document.createElement('article');
+          card.className = 'repo';
+          const updated = new Date(repo.pushed_at).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'2-digit'});
+          const lang = repo.language ? `<span class="badge">${repo.language}</span>` : '';
+          const stars = repo.stargazers_count ? `★ ${repo.stargazers_count}` : '';
+          const live = repo.has_pages ? `https://${username}.github.io/${repo.name}/` : '';
+          card.innerHTML = `
+            <h3><a href="${repo.html_url}" target="_blank" rel="noopener">${repo.name}</a></h3>
+            <p>${repo.description ? repo.description : '—'}</p>
+            <div class="meta">
+              ${lang}
+              <span>Updated: ${updated}</span>
+              ${stars ? `<span>${stars}</span>` : ''}
+              ${live ? `<a class="btn" style="padding:6px 10px" href="${live}" target="_blank" rel="noopener">Live</a>` : ''}
+            </div>`;
+          grid.appendChild(card);
+        }
+      }catch(e){
+        grid.innerHTML = '<div class="repo">Could not load repositories.</div>';
+      }
+    }
+    loadRepos('aimnana');
+  </script>
+</body>
+</html>
