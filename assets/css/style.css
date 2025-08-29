@@ -3,9 +3,10 @@
    - Personal palette (Pantone-like)
    - Fluid grids (auto-fit/minmax)
    - Compact cards with spacing
-   - Dark mode toggle (slider)
-   - Projects page auto layout
-   - Responsive tweaks
+   - Buttons pinned to bottom
+   - Dark mode (slider)
+   - Projects page layout
+   - Mobile polish
 ============================ */
 
 :root{
@@ -54,8 +55,12 @@ header{
   display:flex; gap:18px; align-items:center;
 }
 .logo{
-  height:72px; width:auto; border-radius:50%;
-  background:#fff; border:3px solid #fff; box-shadow:var(--shadow);
+  height:90px;             /* ↑ più grande */
+  width:auto;
+  border-radius:50%;
+  background:#fff;
+  border:3px solid #fff;
+  box-shadow:var(--shadow);
   object-fit:cover;
 }
 h1{ margin:0; font-size:clamp(26px,4vw,40px); }
@@ -96,12 +101,12 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
   padding: clamp(10px, 2.2vw, 14px);
   max-width:900px;
   margin-inline:auto;
-  margin-bottom:20px;
+  margin-bottom:20px; /* spazio extra tra le card */
 }
 .card h2{ margin:0 0 10px }
 .lead{ color:var(--muted) }
 
-/* ----------------- BADGES ----------------- */
+/* ----------------- BADGES (Shields nella About) ----------------- */
 .badges img{ height:22px; margin:6px 6px 0 0 }
 
 /* ----------------- CONTACT ----------------- */
@@ -201,8 +206,8 @@ footer{
   background:var(--primary); box-shadow:0 6px 14px rgba(18,34,52,.18); transition:transform .25s ease;
 }
 .theme-switch .icon{ opacity:.7; transition:opacity .2s ease; }
-.theme-switch .sun{ margin-right:16px; }
-.theme-switch .moon{ margin-left:16px; opacity:.35; }
+.theme-switch .sun{ margin-right:0; }
+.theme-switch .moon{ margin-left:0; opacity:.35; } /* centrata meglio */
 .theme-switch input:checked + .track .thumb{ transform:translate(34px, -50%); }
 .theme-switch input:checked + .track .sun{ opacity:.35; }
 .theme-switch input:checked + .track .moon{ opacity:.8; }
@@ -231,13 +236,24 @@ html[data-theme="dark"] .theme-switch .track{ background:var(--surface); color:v
 }
 .pd-list{ margin:8px 0 0; padding-left:18px; }
 .pd-list li{ margin:4px 0; color:var(--muted); }
-@media (max-width: 980px){
-  .pd-head{ grid-template-columns: 1fr; }
-  .pd-shot{ height: 220px; }
-  .pd-body{ grid-template-columns: 1fr; }
+
+/* ---- Subtle tags in Projects page ---- */
+.project-detail .pd-badges { gap: 6px; margin-bottom: 10px; }
+.project-detail .pd-badges .badge{
+  background: transparent;           /* no fill */
+  color: var(--muted);               /* testo tenue */
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  box-shadow: none;
+  letter-spacing: .2px;
 }
-@media (max-width: 640px){
-  .pd-shot{ height: 180px; }
+html[data-theme="dark"] .project-detail .pd-badges .badge{
+  color: #b7c0cc;
+  border-color: #324055;
+  background: transparent;
 }
 
 /* ============================
@@ -268,36 +284,96 @@ html[data-theme="dark"] .card {
   box-shadow: var(--shadow-sm);
 }
 html[data-theme="dark"] .project,
-html[data-theme="dark"] .repo {
-  background:#0f1520;
-}
-html[data-theme="dark"] .chip {
-  background: var(--accent);
-  color:#f0d5d6;
-}
+html[data-theme="dark"] .repo { background:#0f1520; }
+html[data-theme="dark"] .chip { background: var(--accent); color:#f0d5d6; }
 
 /* ============================
-   Responsive tweaks
+   MOBILE POLISH PACK
 ============================ */
-@media (max-width: 980px) {
-  .hero{ padding:20px 16px 28px; gap:14px; }
-  .cta{ gap:10px; }
+
+/* Skip link (usato in index) */
+.visually-hidden-focusable {
+  position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden;
+}
+.visually-hidden-focusable:focus {
+  position:static; width:auto; height:auto; padding:8px 12px; margin:6px;
+  background:#fff; border:2px solid var(--primary); border-radius:10px; z-index:1000;
+}
+
+/* ---------- Tablet (<= 900px) ---------- */
+@media (max-width: 900px) {
+  .hero { padding: 18px 16px 24px; gap: 12px; }
+  .logo { height: 78px; }
+  h1 { font-size: clamp(22px, 5vw, 30px); }
+  .wrap { padding: 0 16px; }
+
+  .projects,
+  .repo-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .skills { grid-template-columns: 1fr; }
+}
+
+/* ---------- Phone (<= 640px) ---------- */
+@media (max-width: 640px) {
+  header { border-bottom-width: 4px; }
+  .hero {
+    padding: 14px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .logo { height: 64px; }
+  h1 { font-size: 22px; line-height: 1.2; }
+  .hero p { font-size: 14px; max-width: 100%; }
+
+  .cta {
+    margin-left: 0; width: 100%; gap: 8px;
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px;
+  }
+  .btn { padding: 10px 12px; font-weight: 700; white-space: nowrap; }
+  .theme-switch .track { height: 34px; width: 66px; }
+
+  .wrap { padding: 0 12px; margin: 16px auto 36px; }
+  .card { padding: 12px; border-radius: 14px; box-shadow: var(--shadow); max-width: 100%; }
+  .card h2 { font-size: 20px; margin-bottom: 8px; }
+
+  .projects,
+  .repo-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  .project { min-height: 0; }
+  .project p { flex-grow: 1; }
+  .project .links { gap: 8px; }
+  .project .links .btn { min-height: 44px; }
+
+  .repo { min-height: 0; }
+  .repo p { flex-grow: 1; }
+  .repo .meta { gap: 8px; }
+  .repo .meta .btn { padding: 6px 10px; min-height: 40px; }
+
+  .skill { padding: 10px; }
+  .bar { height: 8px; }
+
+  .timeline { padding-left: 14px; border-left-width: 2px; }
+}
+
+/* ---------- Small phones (<= 400px) ---------- */
+@media (max-width: 400px) {
+  .logo { height: 56px; }
+  .btn { padding: 9px 10px; }
+  .theme-switch .track { width: 64px; height: 32px; }
+  .theme-switch .thumb { width: 26px; height: 26px; }
+}
+
+/* ---------- Projects page specific ---------- */
+@media (max-width: 900px) {
+  .pd-head { grid-template-columns: 1fr; }
+  .pd-shot { height: 220px; }
+  .pd-body { grid-template-columns: 1fr; }
 }
 @media (max-width: 640px) {
-  header{ border-bottom-width:4px; }
-  .hero{ padding:16px; flex-direction:column; align-items:flex-start; gap:12px; }
-  .logo{ height:56px; }
-  h1{ font-size:22px; line-height:1.2; }
-  .hero p{ font-size:14px; max-width:100%; }
-  .cta{ margin-left:0; width:100%; gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:2px; }
-  .btn{ padding:10px 12px; font-weight:700; white-space:nowrap }
-  .wrap{ padding:0 14px; margin:18px auto 40px; }
-  .card{ padding:12px; border-radius:14px; box-shadow:var(--shadow); max-width:100%; }
-  .card h2{ font-size:20px; }
-  .contact .row{ flex-direction:column; }
-  .contact .row .btn{ width:100%; text-align:center; }
-  .badges img{ height:18px; }
-  .skill{ padding:10px; }
-  .bar{ height:8px; }
-  .timeline{ padding-left:16px; }
+  .pd-shot { height: 180px; }
+  .pd-badges { gap: 6px; }
+  .pd-links { gap: 8px; }
+  .pd-links .btn { min-height: 44px; }
+  .project-detail .pd-badges .badge { font-size: 11.5px; padding: 3px 9px; }
 }
