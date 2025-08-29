@@ -2,7 +2,8 @@
    aimNana.github.io — style.css
    - Personal palette (Pantone-like)
    - Fluid grids (auto-fit/minmax)
-   - Compact cards
+   - Compact cards with spacing
+   - Dark mode toggle
    - Responsive tweaks
 ============================ */
 
@@ -40,7 +41,7 @@ body{
   line-height:1.5;
 }
 
-/* ----------------- HEADER (righe + gradiente) ----------------- */
+/* ----------------- HEADER (striped + gradient) ----------------- */
 header{
   background:
     repeating-linear-gradient(90deg, var(--lavender) 0 16px, transparent 16px 32px),
@@ -66,6 +67,12 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
 }
 .btn.secondary{ background:var(--secondary) }
 .btn:hover{ transform:translateY(-1px) }
+.btn.ghost{
+  background:transparent; color:var(--ink);
+  border:1px dashed var(--line);
+  box-shadow:none;
+}
+.btn.ghost:hover{ transform:translateY(-1px) }
 
 /* ----------------- WRAP + FLUID GRID ----------------- */
 .wrap{
@@ -74,24 +81,22 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
   padding:0 20px;
 }
 
-/* Griglia generica per le card principali (fluid, auto-fit) */
 .grid{
   display:grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: clamp(12px, 2.5vw, 20px);
 }
 
-/* ----------------- CARD (compact) ----------------- */
+/* ----------------- CARD (compact + spacing) ----------------- */
 .card{
   background:var(--surface);
   border:1px solid var(--line);
   border-radius:14px;
   box-shadow:var(--shadow-sm);
   padding: clamp(10px, 2.2vw, 14px);
-
-  /* Compatta la percezione su schermi grandi */
   max-width:900px;
   margin-inline:auto;
+  margin-bottom:20px; /* extra spacing between cards */
 }
 .card h2{ margin:0 0 10px }
 .lead{ color:var(--muted) }
@@ -114,6 +119,7 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
   border:1px solid var(--line);
   border-radius:12px;
   background:linear-gradient(180deg,#fff 0%, rgba(231,229,241,.5) 100%);
+  margin-bottom:20px;
 }
 .project h3{ margin:0 0 6px }
 .project p{ margin:0 0 12px; color:#425364 }
@@ -127,7 +133,8 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
 #skills{ grid-column:1/-1 }
 .skills{ display:grid; gap:12px }
 .skill{
-  background:#fff; border:1px solid var(--line); border-radius:16px; padding:10px
+  background:#fff; border:1px solid var(--line); border-radius:16px; padding:10px;
+  margin-bottom:20px;
 }
 .skill b{
   display:inline-block; background:var(--lavender);
@@ -157,6 +164,7 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
   border:1px solid var(--line);
   border-radius:12px;
   background:#fff;
+  margin-bottom:20px;
 }
 .repo h3{ margin:0 0 6px; font-size:18px }
 .repo p{ margin:0 0 10px; color:#4b5d6c; min-height:42px }
@@ -190,8 +198,6 @@ footer{
 
 /* Phones */
 @media (max-width: 640px) {
-
-  /* Header / hero */
   header{ border-bottom-width:4px; }
   .hero{
     padding:16px;
@@ -200,53 +206,30 @@ footer{
     gap:12px;
   }
   .logo{ height:56px; }
-  h1{ font-size:26px; line-height:1.15; }
+  h1{ font-size:22px; line-height:1.2; }
   .hero p{ font-size:14px; max-width:100%; }
 
-  /* CTA row scrollabile */
   .cta{
     margin-left:0;
     width:100%;
     gap:8px;
     overflow-x:auto;
     -webkit-overflow-scrolling:touch;
-    padding-bottom:2px;             /* fix iOS shadow clipping */
+    padding-bottom:2px;
   }
-  .btn{
-    padding:10px 12px;
-    font-weight:700;
-    white-space:nowrap;
-  }
+  .btn{ padding:10px 12px; font-weight:700; white-space:nowrap }
 
-  /* Wrapper */
   .wrap{ padding:0 14px; margin:18px auto 40px; }
 
-  /* Cards */
-  .card{
-    padding:14px;
-    border-radius:16px;
-    box-shadow:var(--shadow);
-    max-width:100%;                 /* su mobile usa tutta la colonna */
-  }
+  .card{ padding:12px; border-radius:14px; box-shadow:var(--shadow); max-width:100%; }
   .card h2{ font-size:20px; }
 
-  /* Contact buttons full-width per tapp */
   .contact .row{ flex-direction:column; }
   .contact .row .btn{ width:100%; text-align:center; }
 
-  /* Badges più piccoli */
   .badges img{ height:18px; }
-
-  /* Skills bars */
   .skill{ padding:10px; }
   .bar{ height:8px; }
-
-  /* Timeline */
   .timeline{ padding-left:16px; }
 }
 
-/* Tiny phones */
-@media (max-width: 360px) {
-  h1{ font-size:22px; }
-  .btn{ padding:9px 10px; font-size:14px; }
-}
