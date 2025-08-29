@@ -15,6 +15,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+  <!-- Header -->
   <header>
     <div class="hero">
       <img src="assets/img/logo.png" alt="Logo" class="logo">
@@ -32,17 +33,23 @@
     </div>
   </header>
 
+  <!-- Main -->
   <main class="wrap">
-    <!-- About, Projects, Skills, Experience, Latest Repos sections -->
-    <!-- (paste here the sections we already prepared) -->
-  </main>
+    <!-- About -->
+    <section class="card about" id="about">
+      <h2>About</h2>
+      <p class="lead">I focus on clean interfaces, accessibility and clear code. Here you’ll find a selection of works and demos hosted with GitHub Pages.</p>
+      <div class="badges">
+        <img alt="HTML5" src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white">
+        <img alt="CSS3" src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white">
+        <img alt="JavaScript" src="https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=222">
+        <img alt="PHP" src="https://img.shields.io/badge/PHP-777BB4?logo=php&logoColor=white">
+        <img alt="MySQL" src="https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white">
+        <img alt="Qt" src="https://img.shields.io/badge/Qt-6.8.3-41cd52?logo=qt&logoColor=white">
+        <img alt="C++17" src="https://img.shields.io/badge/C++-17-00599C?logo=c%2B%2B&logoColor=white">
+      </div>
+    </section>
 
-  <footer>
-    <small>© <span id="year"></span> <strong>aimNana</strong> · Personal palette (Pantone) · Hosted on GitHub Pages.</small>
-  </footer>
-
-  <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+    <!-- Contact -->
+    <section class="card contact" id="contact">
+      <h2>Contact
