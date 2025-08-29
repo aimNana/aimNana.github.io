@@ -1,5 +1,13 @@
+/* ============================
+   aimNana.github.io — style.css
+   - Personal palette (Pantone-like)
+   - Fluid grids (auto-fit/minmax)
+   - Compact cards
+   - Responsive tweaks
+============================ */
+
 :root{
-  /* Personal palette (approx HEX) */
+  /* Palette (approx HEX) */
   --placid:#A7C6ED;   /* primary */
   --baby:#CFE5F5;     /* bg */
   --greenash:#A8D5BA; /* secondary */
@@ -7,6 +15,7 @@
   --rosewater:#F7E8E3;/* chip bg */
   --silver:#C9CED6;   /* borders */
 
+  /* Semantic */
   --bg:var(--baby);
   --surface:#ffffff;
   --ink:#25313D;
@@ -15,11 +24,16 @@
   --secondary:var(--greenash);
   --accent:var(--rosewater);
   --line:var(--silver);
-  --shadow:0 14px 28px rgba(18, 34, 52, .12);
+
+  --shadow-lg:0 14px 28px rgba(18, 34, 52, .12);
+  --shadow:   0 10px 22px rgba(18, 34, 52, .12);
+  --shadow-sm:0 6px 14px  rgba(18, 34, 52, .08);
+
   --radius:20px;
 }
 
-*{box-sizing:border-box}
+*{ box-sizing:border-box }
+html,body{ height:100% }
 body{
   margin:0; color:var(--ink); background:var(--bg);
   font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
@@ -37,27 +51,47 @@ header{
   max-width:1100px; margin:0 auto; padding:28px 20px 36px;
   display:flex; gap:18px; align-items:center;
 }
-.logo{ height:72px; width:auto; border-radius:50%; background:#fff; border:3px solid #fff; box-shadow:var(--shadow); object-fit:cover }
+.logo{
+  height:72px; width:auto; border-radius:50%;
+  background:#fff; border:3px solid #fff; box-shadow:var(--shadow);
+  object-fit:cover;
+}
 h1{ margin:0; font-size:clamp(26px,4vw,40px); }
 .hero p{ margin:.4rem 0 0; color:var(--muted); max-width:68ch }
 .cta{ margin-left:auto; display:flex; gap:14px; flex-wrap:wrap }
 .btn{
   padding:12px 16px; border-radius:999px; border:1px solid var(--line);
   background:var(--primary); color:#0C1D16; font-weight:800; text-decoration:none;
-  box-shadow:0 10px 22px rgba(18,34,52,.12);
+  box-shadow:var(--shadow);
 }
 .btn.secondary{ background:var(--secondary) }
 .btn:hover{ transform:translateY(-1px) }
 
-/* ----------------- LAYOUT ----------------- */
-.wrap{ max-width:1100px; margin:22px auto 60px; padding:0 20px }
-.grid{ display:grid; grid-template-columns: 1fr 1fr; gap:20px }
-@media (max-width:980px){ .grid{grid-template-columns:1fr} }
+/* ----------------- WRAP + FLUID GRID ----------------- */
+.wrap{
+  max-width:1100px;
+  margin:22px auto 60px;
+  padding:0 20px;
+}
 
-/* ----------------- CARD ----------------- */
+/* Griglia generica per le card principali (fluid, auto-fit) */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: clamp(12px, 2.5vw, 20px);
+}
+
+/* ----------------- CARD (compact) ----------------- */
 .card{
-  background:var(--surface); border:1px solid var(--line);
-  border-radius:var(--radius); box-shadow:var(--shadow); padding:18px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:var(--shadow-sm);
+  padding: clamp(10px, 2.2vw, 14px);
+
+  /* Compatta la percezione su schermi grandi */
+  max-width:900px;
+  margin-inline:auto;
 }
 .card h2{ margin:0 0 10px }
 .lead{ color:var(--muted) }
@@ -68,14 +102,17 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
 /* ----------------- CONTACT ----------------- */
 .contact .row{ display:flex; gap:12px; flex-wrap:wrap }
 
-/* ----------------- PROJECTS ----------------- */
+/* ----------------- PROJECTS (fluid grid) ----------------- */
 #projects{ grid-column:1/-1 }
-.projects{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px }
-@media (max-width:980px){ .projects{ grid-template-columns:1fr 1fr } }
-@media (max-width:640px){ .projects{ grid-template-columns:1fr } }
-
+.projects{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(10px, 2vw, 16px);
+}
 .project{
-  padding:16px; border:1px solid var(--line); border-radius:18px;
+  padding: clamp(10px, 2vw, 12px);
+  border:1px solid var(--line);
+  border-radius:12px;
   background:linear-gradient(180deg,#fff 0%, rgba(231,229,241,.5) 100%);
 }
 .project h3{ margin:0 0 6px }
@@ -89,28 +126,48 @@ h1{ margin:0; font-size:clamp(26px,4vw,40px); }
 /* ----------------- SKILLS ----------------- */
 #skills{ grid-column:1/-1 }
 .skills{ display:grid; gap:12px }
-.skill{ background:#fff; border:1px solid var(--line); border-radius:16px; padding:10px }
-.skill b{ display:inline-block; background:var(--lavender); padding:4px 10px; border-radius:999px; margin-bottom:6px }
+.skill{
+  background:#fff; border:1px solid var(--line); border-radius:16px; padding:10px
+}
+.skill b{
+  display:inline-block; background:var(--lavender);
+  padding:4px 10px; border-radius:999px; margin-bottom:6px
+}
 .bar{ height:10px; background:var(--silver); border-radius:999px; overflow:hidden }
 .bar span{ display:block; height:100%; background:var(--secondary) }
 
 /* ----------------- TIMELINE ----------------- */
 #experience{ grid-column:1/-1 }
-.timeline{ position:relative; padding-left:22px; border-left:3px solid var(--silver) }
+.timeline{
+  position:relative; padding-left:22px; border-left:3px solid var(--silver)
+}
 .timeline-item{ margin-bottom:16px }
 .timeline-item h4{ margin:0 0 4px }
 .timeline-item small{ color:var(--muted) }
 
-/* ----------------- LATEST REPOS ----------------- */
+/* ----------------- LATEST REPOS (fluid grid) ----------------- */
 #latest{ grid-column:1/-1 }
-.repo-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px }
-@media (max-width:980px){ .repo-grid{ grid-template-columns:1fr 1fr } }
-@media (max-width:640px){ .repo-grid{ grid-template-columns:1fr } }
-.repo{ padding:16px; border:1px solid var(--line); border-radius:16px; background:#fff }
+.repo-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: clamp(10px, 2vw, 16px);
+}
+.repo{
+  padding: clamp(10px, 2vw, 12px);
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+}
 .repo h3{ margin:0 0 6px; font-size:18px }
 .repo p{ margin:0 0 10px; color:#4b5d6c; min-height:42px }
-.repo .meta{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; font-size:13px; color:#516171 }
-.badge{ display:inline-block; padding:4px 8px; border-radius:999px; background:var(--greenash); font-weight:800; color:#1f3a30 }
+.repo .meta{
+  display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+  font-size:13px; color:#516171
+}
+.badge{
+  display:inline-block; padding:4px 8px; border-radius:999px;
+  background:var(--greenash); font-weight:800; color:#1f3a30
+}
 
 /* ----------------- FOOTER ----------------- */
 footer{
@@ -118,81 +175,78 @@ footer{
   font-size:14px; color:#3b4856
 }
 
-/* ============ Mobile & tablet tweaks ============ */
+/* ============================
+   Responsive Tweaks
+============================ */
 
 /* Tablets / small laptops */
 @media (max-width: 980px) {
-  .hero {
+  .hero{
     padding: 20px 16px 28px;
     gap: 14px;
   }
-  .cta { gap: 10px; }
-  .projects,
-  .repo-grid { grid-template-columns: 1fr 1fr; }
+  .cta{ gap:10px; }
 }
 
 /* Phones */
 @media (max-width: 640px) {
 
   /* Header / hero */
-  header { border-bottom-width: 4px; }
-  .hero {
-    padding: 16px;
-    flex-direction: column;          /* stack logo + text + buttons */
-    align-items: flex-start;
-    gap: 12px;
+  header{ border-bottom-width:4px; }
+  .hero{
+    padding:16px;
+    flex-direction:column;          /* stack logo + text + buttons */
+    align-items:flex-start;
+    gap:12px;
   }
-  .logo { height: 56px; }            /* smaller logo on phones */
-  h1 { font-size: 26px; line-height: 1.15; }
-  .hero p { font-size: 14px; max-width: 100%; }
+  .logo{ height:56px; }
+  h1{ font-size:26px; line-height:1.15; }
+  .hero p{ font-size:14px; max-width:100%; }
 
-  /* CTA buttons become pill chips in a row */
-  .cta {
-    margin-left: 0;
-    width: 100%;
-    gap: 8px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 2px;             /* fix iOS shadow clipping */
+  /* CTA row scrollabile */
+  .cta{
+    margin-left:0;
+    width:100%;
+    gap:8px;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+    padding-bottom:2px;             /* fix iOS shadow clipping */
   }
-  .btn {
-    padding: 10px 12px;
-    font-weight: 700;
-    white-space: nowrap;
+  .btn{
+    padding:10px 12px;
+    font-weight:700;
+    white-space:nowrap;
   }
 
-  /* Global wrapper */
-  .wrap { padding: 0 14px; margin: 18px auto 40px; }
+  /* Wrapper */
+  .wrap{ padding:0 14px; margin:18px auto 40px; }
 
   /* Cards */
-  .card { padding: 14px; border-radius: 16px; box-shadow: 0 10px 20px rgba(18,34,52,.10); }
-  .card h2 { font-size: 20px; }
+  .card{
+    padding:14px;
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    max-width:100%;                 /* su mobile usa tutta la colonna */
+  }
+  .card h2{ font-size:20px; }
 
-  /* Layout grids -> single column */
-  .grid { grid-template-columns: 1fr; gap: 14px; }
+  /* Contact buttons full-width per tapp */
+  .contact .row{ flex-direction:column; }
+  .contact .row .btn{ width:100%; text-align:center; }
 
-  /* Projects, repos grids -> 1 col */
-  .projects,
-  .repo-grid { grid-template-columns: 1fr; gap: 14px; }
+  /* Badges più piccoli */
+  .badges img{ height:18px; }
 
-  /* Contact buttons span full width for easy tapping */
-  .contact .row { flex-direction: column; }
-  .contact .row .btn { width: 100%; text-align: center; }
+  /* Skills bars */
+  .skill{ padding:10px; }
+  .bar{ height:8px; }
 
-  /* Badges shrink slightly */
-  .badges img { height: 18px; }
-
-  /* Skills bars tighter */
-  .skill { padding: 10px; }
-  .bar { height: 8px; }
-
-  /* Timeline spacing */
-  .timeline { padding-left: 16px; }
+  /* Timeline */
+  .timeline{ padding-left:16px; }
 }
 
-/* Tiny phones (optional, extra polish) */
+/* Tiny phones */
 @media (max-width: 360px) {
-  h1 { font-size: 22px; }
-  .btn { padding: 9px 10px; font-size: 14px; }
+  h1{ font-size:22px; }
+  .btn{ padding:9px 10px; font-size:14px; }
 }
-
