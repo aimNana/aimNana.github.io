@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>aimNana — Portfolio</title>
-  <meta name="description" content="Personal portfolio on GitHub Pages: projects, skills, contacts." />
+  <meta name="description" content="Personal portfolio on GitHub Pages: projects, skills, experience and latest repositories." />
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,7 +12,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
 
   <!-- External CSS -->
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/style.css?v=1">
 </head>
 <body>
   <!-- Header -->
@@ -27,8 +27,9 @@
       <nav class="cta">
         <a class="btn" href="#projects">Projects</a>
         <a class="btn secondary" href="#skills">Skills</a>
-        <a class="btn" href="#latest">Latest Repos</a>
+        <a class="btn" href="projects.html">Projects Page</a>
         <a class="btn secondary" href="#contact">Contact</a>
+        <button id="theme-toggle" class="btn ghost" type="button" aria-label="Toggle dark mode">🌓</button>
       </nav>
     </div>
   </header>
@@ -62,7 +63,7 @@
       </div>
     </section>
 
-    <!-- Projects -->
+    <!-- Projects (highlight) -->
     <section class="card" id="projects" style="grid-column:1/-1">
       <h2>Highlighted Projects</h2>
       <div class="projects">
@@ -88,7 +89,7 @@
           <h3>Intranet PHP/JS/SQL</h3>
           <p>Authentication, CRUD and responsive layout. (Private repo / case study)</p>
           <div class="links">
-            <a class="btn secondary" href="#" target="_blank" rel="noopener">Case study</a>
+            <a class="btn secondary" href="projects.html#intranet" rel="noopener">Case study</a>
           </div>
         </article>
       </div>
@@ -137,11 +138,34 @@
     <small>© <span id="year"></span> <strong>aimNana</strong> · Personal palette (Pantone) · Hosted on GitHub Pages.</small>
   </footer>
 
-  <!-- Script -->
+  <!-- Scripts -->
   <script>
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Latest repos
+    // Dark mode toggle (with saved preference)
+    (function() {
+      const STORAGE_KEY = 'theme';
+      const root = document.documentElement;
+      function applyTheme(theme) {
+        if (theme === 'dark') root.setAttribute('data-theme', 'dark');
+        else root.removeAttribute('data-theme');
+      }
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) applyTheme(saved);
+      else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) applyTheme('dark');
+
+      const btn = document.getElementById('theme-toggle');
+      if (btn) {
+        btn.addEventListener('click', () => {
+          const isDark = root.getAttribute('data-theme') === 'dark';
+          const next = isDark ? 'light' : 'dark';
+          applyTheme(next);
+          localStorage.setItem(STORAGE_KEY, next);
+        });
+      }
+    })();
+
+    // Latest repos from GitHub
     async function loadRepos(username){
       const grid = document.getElementById('repo-grid');
       grid.innerHTML = '<div class="repo">Loading…</div>';
